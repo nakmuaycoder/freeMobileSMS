@@ -2,7 +2,7 @@
 Python wrapper for Free mobile SMS API
 
 
-## syno_warnings
+## freeMobileSMS
 
 ### SMS sender
 
