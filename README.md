@@ -15,7 +15,7 @@ script using `FreeMobileTxtMe` class from [`sms`](freeMobileSMS/sms/free_texter.
 python freeMobileSMS \
     --user=user_id \
     --password=user_pwd
-    --message="This is a message"
+    --message="This is a test message"
 ```
 
 ```python
@@ -24,7 +24,7 @@ from freeMobileSMS.sms import FreeMobileTxtMe
 
 user = "user"
 password = "pwd"
-message = "This is a test"
+message = "This is a test message"
 
 free = FreeMobileTxtMe(free_mobile_user=user,
                        free_mobile_pass=password
