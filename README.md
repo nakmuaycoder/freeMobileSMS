@@ -12,7 +12,7 @@ script using `FreeMobileTxtMe` class from [`sms`](freeMobileSMS/sms/free_texter.
 
 ```shell
 # Send SMS using command line
-python freeMobileSMS/sms \
+python freeMobileSMS \
     --user=user_id \
     --password=user_pwd
     --message="This is a message"

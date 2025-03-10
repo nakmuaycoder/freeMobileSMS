@@ -9,7 +9,7 @@ python free_mobile_sms_warning \
 
 """
 import argparse
-from free_texter import FreeMobileTxtMe
+from .sms.free_texter import FreeMobileTxtMe
 
 
 def main() -> None:
