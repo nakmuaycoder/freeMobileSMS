@@ -7,14 +7,17 @@ install:
 	.venv/bin/pre-commit install
 
 test:
-	.venv/bin/pytest tests/
+	uv run --extra dev pytest tests/
 
 lint:
-	.venv/bin/ruff check .
+	uv run --extra dev ruff check .
 
 format:
-	.venv/bin/ruff check --fix .
-	.venv/bin/ruff format .
+	uv run --extra dev ruff check --fix .
+	uv run --extra dev ruff format .
+
+scan-secrets:
+	uv run --extra dev detect-secrets scan --baseline .secrets.baseline
 
 clean:
 	rm -rf .venv
