@@ -1,3 +1,3 @@
-from . import sms
+from .client import FreeMobileTxtMe
 
-__all__ = ["sms"]
+__all__ = ["FreeMobileTxtMe"]

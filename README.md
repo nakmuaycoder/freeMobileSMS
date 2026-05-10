@@ -53,7 +53,7 @@ python -m freeMobileSMS --user YOUR_ID --password YOUR_PASS --message "Hello!" -
 Integrate SMS notifications into your own Python applications:
 
 ```python
-from freeMobileSMS.sms import FreeMobileTxtMe
+from freeMobileSMS import FreeMobileTxtMe
 
 # Initialize the texter
 free = FreeMobileTxtMe(

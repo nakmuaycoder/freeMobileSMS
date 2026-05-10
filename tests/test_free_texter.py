@@ -3,7 +3,7 @@ from unittest.mock import Mock, patch
 import pytest
 import requests
 
-from freeMobileSMS.sms.free_texter import FreeMobileTxtMe
+from freeMobileSMS.client import FreeMobileTxtMe
 
 
 @pytest.fixture
@@ -11,7 +11,7 @@ def free_texter():
     return FreeMobileTxtMe("test_user", "test_pass")
 
 
-@patch("freeMobileSMS.sms.free_texter.requests.get")
+@patch("freeMobileSMS.client.requests.get")
 def test_send_message_success(mock_get, free_texter):
     mock_response = Mock()
     mock_response.raise_for_status.return_value = None
@@ -26,7 +26,7 @@ def test_send_message_success(mock_get, free_texter):
     )
 
 
-@patch("freeMobileSMS.sms.free_texter.requests.get")
+@patch("freeMobileSMS.client.requests.get")
 def test_send_message_failure(mock_get, free_texter):
     mock_get.side_effect = requests.exceptions.Timeout("Timeout occurred")
 
@@ -36,7 +36,7 @@ def test_send_message_failure(mock_get, free_texter):
     mock_get.assert_called_once()
 
 
-@patch("freeMobileSMS.sms.free_texter.requests.get")
+@patch("freeMobileSMS.client.requests.get")
 def test_send_message_custom_timeout(mock_get):
     free_texter = FreeMobileTxtMe("test_user", "test_pass", timeout=30)
     mock_response = Mock()
