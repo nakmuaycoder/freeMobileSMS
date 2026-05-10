@@ -21,8 +21,7 @@ def test_send_message_success(mock_get, free_texter):
 
     assert result is True
     mock_get.assert_called_once_with(
-        "https://smsapi.free-mobile.fr/sendmsg",
-        params={"user": "test_user", "pass": "test_pass", "msg": "Hello, World!"},
+        "https://smsapi.free-mobile.fr/sendmsg?user=test_user&pass=test_pass&msg=Hello%2C%20World%21",
         timeout=10,
     )
 
@@ -47,7 +46,6 @@ def test_send_message_custom_timeout(mock_get):
     free_texter.send_message("Hello, World!")
 
     mock_get.assert_called_once_with(
-        "https://smsapi.free-mobile.fr/sendmsg",
-        params={"user": "test_user", "pass": "test_pass", "msg": "Hello, World!"},
+        "https://smsapi.free-mobile.fr/sendmsg?user=test_user&pass=test_pass&msg=Hello%2C%20World%21",
         timeout=30,
     )

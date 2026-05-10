@@ -3,6 +3,7 @@ Class for sending an SMS using Free Mobile API.
 """
 
 import logging
+import urllib.parse
 
 import requests
 
@@ -36,13 +37,22 @@ class FreeMobileTxtMe:
         Returns:
             bool: True if the message was successfully sent, False otherwise.
         """
-        params = {"user": self._user, "pass": self._pass, "msg": message}
+
+        # Free Mobile API is very strict and expects %20 instead of + for spaces.
+        # requests uses + by default for query params, so we build the URL manually.
+        encoded_msg = urllib.parse.quote(message)
+        url = f"{self._url}?user={self._user}&pass={self._pass}&msg={encoded_msg}"
 
         try:
-            response = requests.get(self._url, params=params, timeout=self._timeout)
+            response = requests.get(url, timeout=self._timeout)
             response.raise_for_status()
             logger.debug("Message sent successfully")
             return True
+        except requests.exceptions.HTTPError as e:
+            logger.error(
+                f"Failed to send message: HTTP {e.response.status_code} {e.response.reason}"
+            )
+            return False
         except requests.exceptions.RequestException as e:
-            logger.error(f"Failed to send message: {type(e).__name__}")
+            logger.error(f"Failed to send message: {type(e).__name__} - {e}")
             return False
