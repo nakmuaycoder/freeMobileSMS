@@ -18,7 +18,9 @@ freeMobileSMS
 ## Install
 
 ```shell
-pip install git+https://github.com/nakmuaycoder/freeMobileSMS.git
+git clone https://github.com/nakmuaycoder/freeMobileSMS.git
+cd freeMobileSMS
+make install
 ```
 
 ## freeMobileSMS
@@ -80,5 +82,3 @@ logger.log(level=logging.CRITICAL, message="critical")
 # Send an SMS
 logger.send_sms(message=f"Your log is available @ {logger.path_log}")
 ```
-
-

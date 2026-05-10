@@ -1,39 +1,47 @@
 """
-
-Class for sending a sms using free mobile
-
+Class for sending an SMS using Free Mobile API.
 """
-from urllib import parse, request
+
+import logging
+
+import requests
+
+logger = logging.getLogger(__name__)
 
 
 class FreeMobileTxtMe:
+    """Object for sending a message via Free Mobile."""
 
     def __init__(self, free_mobile_user: str, free_mobile_pass: str):
         """
-        Object for sending a message
+        Initialize the FreeMobileTxtMe object.
 
-        :param free_mobile_user: free mobile service user
-        :param free_mobile_pass: free mobile service password
+        Args:
+            free_mobile_user: Free mobile service user ID.
+            free_mobile_pass: Free mobile service password.
         """
-        self._url = f"https://smsapi.free-mobile.fr/sendmsg?user={free_mobile_user}&pass={free_mobile_pass}&msg="
+        self._user = free_mobile_user
+        self._pass = free_mobile_pass
+        self._url = "https://smsapi.free-mobile.fr/sendmsg"
+        self._timeout = 10  # Seconds
 
-    def _encode_url(self, message: str) -> str:
+    def send_message(self, message: str) -> bool:
         """
-        Encode the message and add it to url.
+        Send a text message to mobile.
 
-        :param message: message to encode
-        :return: url to send.
+        Args:
+            message: Text message to send.
+
+        Returns:
+            bool: True if the message was successfully sent, False otherwise.
         """
-        return self._url + parse.quote(message)
+        params = {"user": self._user, "pass": self._pass, "msg": message}
 
-    def send_message(self, message: str) -> None:
-        """
-        Encode and send a text message to mobile
-
-        :param message: text message to send
-        """
-        m = self._encode_url(message=message)
-
-        with request.urlopen(m) as _:
-            pass
-
+        try:
+            response = requests.get(self._url, params=params, timeout=self._timeout)
+            response.raise_for_status()
+            logger.debug("Message sent successfully")
+            return True
+        except requests.exceptions.RequestException as e:
+            logger.error(f"Failed to send message: {e}")
+            return False

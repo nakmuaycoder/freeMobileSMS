@@ -8,7 +8,9 @@ python free_mobile_sms_warning \
     --message="This is a test message"
 
 """
+
 import argparse
+
 from .sms.free_texter import FreeMobileTxtMe
 
 
@@ -18,22 +20,15 @@ def main() -> None:
 
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument("--user",
-                        type=str,
-                        required=True,
-                        help="Free mobile user"
-                        )
-    parser.add_argument("--password",
-                        type=str,
-                        required=True,
-                        help="Free mobile password"
-                        )
-    parser.add_argument("--message",
-                        type=str,
-                        required=False,
-                        default="This is a test message",
-                        help="Message to send"
-                        )
+    parser.add_argument("--user", type=str, required=True, help="Free mobile user")
+    parser.add_argument("--password", type=str, required=True, help="Free mobile password")
+    parser.add_argument(
+        "--message",
+        type=str,
+        required=False,
+        default="This is a test message",
+        help="Message to send",
+    )
 
     args = parser.parse_args()
     warn = FreeMobileTxtMe(free_mobile_user=args.user, free_mobile_pass=args.password)
