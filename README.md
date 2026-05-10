@@ -5,7 +5,6 @@ Python wrapper for Free mobile SMS API
 freeMobileSMS
 │ freeMobileSMS
 │ ├── __init__.py
-│ ├── logging.py
 │ ├── __main__.py
 │ └── sms
 │     ├── free_texter.py
@@ -57,28 +56,4 @@ free = FreeMobileTxtMe(free_mobile_user=user,
                        )
 
 free.send_message(message=message)
-```
-
-### Logging module
-
-```python
-import logging
-from freeMobileSMS.logging import Logger
-
-free_mobile_user = "free"
-free_mobile_password = "pwd"
-
-# Logger instantiation
-logger = Logger(log_name="log_name",
-                free_mobile_user=free_mobile_user,
-                free_mobile_pass=free_mobile_password
-                )
-
-# Log a message
-logger.log(level=logging.INFO, message="info")
-logger.log(level=logging.ERROR, message="error")
-logger.log(level=logging.CRITICAL, message="critical")
-
-# Send an SMS
-logger.send_sms(message=f"Your log is available @ {logger.path_log}")
 ```
