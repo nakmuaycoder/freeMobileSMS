@@ -1,84 +1,89 @@
-# freeMobileSMS
-Python wrapper for Free mobile SMS API
+# 📱 FreeMobileSMS
 
-```
-freeMobileSMS
-│ freeMobileSMS
-│ ├── __init__.py
-│ ├── logging.py
-│ ├── __main__.py
-│ └── sms
-│     ├── free_texter.py
-│     └── __init__.py
-├── LICENSE
-├── README.md
-└── setup.py
-```
+[![CI](https://github.com/nakmuaycoder/freeMobileSMS/actions/workflows/ci.yml/badge.svg)](https://github.com/nakmuaycoder/freeMobileSMS/actions/workflows/ci.yml)
+[![Python Version](https://img.shields.io/badge/python-3.8%2B-blue.svg)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![uv](https://img.shields.io/endpoint?url=https://raw.githubusercontent.com/astral-sh/uv/main/assets/badge/v0.json)](https://github.com/astral-sh/uv)
 
-## Install
+A robust and modern Python wrapper for the **Free Mobile SMS API**. Send text notifications to your mobile phone instantly via CLI or Python script.
 
-```shell
-pip install git+https://github.com/nakmuaycoder/freeMobileSMS.git
-```
+---
 
-## freeMobileSMS
+## 🚀 Features
 
-### SMS sender
+- **Modern & Robust**: Built with `requests`, including proper error handling and configurable timeouts.
+- **Developer Friendly**: Fully managed with `uv` for lightning-fast dependency management.
+- **Dual Usage**: Use it as a command-line tool (CLI) or as a Python library.
+- **Production Ready**: Includes unit tests, linting (Ruff), and GitHub Actions CI.
 
-Send an SMS using [free mobile](https://dev.to/steeve/send-text-notification-from-your-synology-nas-with-free-mobile-sms-jic)
-from command line by calling [sms application](freeMobileSMS/__main__.py) or python inside python
-script using `FreeMobileTxtMe` class from [`sms`](freeMobileSMS/sms/free_texter.py) package.
+---
+
+## 🛠️ Installation
+
+The easiest way to install and set up the project is using the provided `Makefile`.
 
 ```shell
-sms --user=user_id --password=user_pwd --message="This is a test message"
+git clone https://github.com/nakmuaycoder/freeMobileSMS.git
+cd freeMobileSMS
+make install
 ```
 
-or
+*This will create a virtual environment, install all dependencies, and set up pre-commit hooks.*
+
+---
+
+## 📖 Usage
+
+### 💻 Command Line (CLI)
+
+After installation, you can use the `sms` command directly:
 
 ```shell
-python freeMobileSMS \
-    --user=user_id \
-    --password=user_pwd \
-    --message="This is a test message"
+sms --user YOUR_ID --password YOUR_PASS --message "Hello from the CLI!"
 ```
 
-```python3
-# Send SMS in python script
-from freeMobileSMS.sms import FreeMobileTxtMe
+Or run it via `python`:
 
-user = "user"
-password = "pwd"
-message = "This is a test message"
-
-free = FreeMobileTxtMe(free_mobile_user=user,
-                       free_mobile_pass=password
-                       )
-
-free.send_message(message=message)
+```shell
+python -m freeMobileSMS --user YOUR_ID --password YOUR_PASS --message "Hello!" --timeout 30
 ```
 
-### Logging module
+### 🐍 Python Library
+
+Integrate SMS notifications into your own Python applications:
 
 ```python
-import logging
-from freeMobileSMS.logging import Logger
+from freeMobileSMS import FreeMobileTxtMe
 
-free_mobile_user = "free"
-free_mobile_password = "pwd"
+# Initialize the texter
+free = FreeMobileTxtMe(
+    free_mobile_user="your_user_id",
+    free_mobile_pass="your_api_key",
+    timeout=15  # Optional: defaults to 10s
+)
 
-# Logger instantiation
-logger = Logger(log_name="log_name",
-                free_mobile_user=free_mobile_user,
-                free_mobile_pass=free_mobile_password
-                )
+# Send the message
+success = free.send_message("Server alert: CPU usage is high! 🚨")
 
-# Log a message
-logger.log(level=logging.INFO, message="info")
-logger.log(level=logging.ERROR, message="error")
-logger.log(level=logging.CRITICAL, message="critical")
-
-# Send an SMS
-logger.send_sms(message=f"Your log is available @ {logger.path_log}")
+if success:
+    print("SMS sent successfully!")
+else:
+    print("Failed to send SMS.")
 ```
 
+---
 
+## 🧪 Development
+
+We use `uv` and `make` to streamline development.
+
+- **Run Tests**: `make test`
+- **Lint Code**: `make lint`
+- **Format Code**: `make format`
+- **Clean Project**: `make clean`
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.

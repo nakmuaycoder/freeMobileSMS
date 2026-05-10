@@ -8,8 +8,10 @@ python free_mobile_sms_warning \
     --message="This is a test message"
 
 """
+
 import argparse
-from .sms.free_texter import FreeMobileTxtMe
+
+from .client import FreeMobileTxtMe
 
 
 def main() -> None:
@@ -18,26 +20,31 @@ def main() -> None:
 
     """
     parser = argparse.ArgumentParser()
-    parser.add_argument("--user",
-                        type=str,
-                        required=True,
-                        help="Free mobile user"
-                        )
-    parser.add_argument("--password",
-                        type=str,
-                        required=True,
-                        help="Free mobile password"
-                        )
-    parser.add_argument("--message",
-                        type=str,
-                        required=False,
-                        default="This is a test message",
-                        help="Message to send"
-                        )
+    parser.add_argument("--user", type=str, required=True, help="Free mobile user")
+    parser.add_argument("--password", type=str, required=True, help="Free mobile password")
+    parser.add_argument(
+        "--message",
+        type=str,
+        required=False,
+        default="This is a test message",
+        help="Message to send",
+    )
+
+    parser.add_argument(
+        "--timeout",
+        type=int,
+        required=False,
+        default=10,
+        help="Request timeout in seconds",
+    )
 
     args = parser.parse_args()
-    warn = FreeMobileTxtMe(free_mobile_user=args.user, free_mobile_pass=args.password)
-    warn.send_message(message=args.message)
+    warn = FreeMobileTxtMe(
+        free_mobile_user=args.user, free_mobile_pass=args.password, timeout=args.timeout
+    )
+    success = warn.send_message(message=args.message)
+    if not success:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":

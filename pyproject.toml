@@ -1,0 +1,39 @@
+[project]
+name = "freeMobileSMS"
+version = "0.1.0"
+description = "Python wrapper for Free mobile SMS API"
+readme = "README.md"
+requires-python = ">=3.8"
+dependencies = [
+    "requests>=2.0.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "pytest-cov>=4.0.0",
+    "ruff>=0.3.0",
+    "detect-secrets>=1.5.0",
+    "pre-commit>=3.0.0",
+]
+
+[project.scripts]
+sms = "freeMobileSMS.__main__:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.pytest.ini_options]
+addopts = "-v --cov=freeMobileSMS"
+testpaths = ["tests"]
+
+[tool.coverage.run]
+source = ["freeMobileSMS"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py38"
+
+[tool.ruff.lint]
+select = ["E", "F", "B", "I"]
