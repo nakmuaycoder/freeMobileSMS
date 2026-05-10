@@ -43,5 +43,5 @@ class FreeMobileTxtMe:
             logger.debug("Message sent successfully")
             return True
         except requests.exceptions.RequestException as e:
-            logger.error(f"Failed to send message: {e}")
+            logger.error(f"Failed to send message: {type(e).__name__}")
             return False
