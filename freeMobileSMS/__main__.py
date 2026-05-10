@@ -42,7 +42,9 @@ def main() -> None:
     warn = FreeMobileTxtMe(
         free_mobile_user=args.user, free_mobile_pass=args.password, timeout=args.timeout
     )
-    warn.send_message(message=args.message)
+    success = warn.send_message(message=args.message)
+    if not success:
+        raise SystemExit(1)
 
 
 if __name__ == "__main__":
