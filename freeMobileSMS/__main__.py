@@ -30,8 +30,18 @@ def main() -> None:
         help="Message to send",
     )
 
+    parser.add_argument(
+        "--timeout",
+        type=int,
+        required=False,
+        default=10,
+        help="Request timeout in seconds",
+    )
+
     args = parser.parse_args()
-    warn = FreeMobileTxtMe(free_mobile_user=args.user, free_mobile_pass=args.password)
+    warn = FreeMobileTxtMe(
+        free_mobile_user=args.user, free_mobile_pass=args.password, timeout=args.timeout
+    )
     warn.send_message(message=args.message)
 
 

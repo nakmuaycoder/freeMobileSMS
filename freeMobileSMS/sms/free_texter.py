@@ -12,18 +12,19 @@ logger = logging.getLogger(__name__)
 class FreeMobileTxtMe:
     """Object for sending a message via Free Mobile."""
 
-    def __init__(self, free_mobile_user: str, free_mobile_pass: str):
+    def __init__(self, free_mobile_user: str, free_mobile_pass: str, timeout: int = 10):
         """
         Initialize the FreeMobileTxtMe object.
 
         Args:
             free_mobile_user: Free mobile service user ID.
             free_mobile_pass: Free mobile service password.
+            timeout: Request timeout in seconds. Defaults to 10.
         """
         self._user = free_mobile_user
         self._pass = free_mobile_pass
         self._url = "https://smsapi.free-mobile.fr/sendmsg"
-        self._timeout = 10  # Seconds
+        self._timeout = timeout
 
     def send_message(self, message: str) -> bool:
         """
